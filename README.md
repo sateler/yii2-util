@@ -46,3 +46,23 @@ Usage
     ]
 ]);
 ```
+
+Acronym Formatter
+-----
+
+Formats a string into it's Acronym and show's the complete string as a tooltip title.
+Load the behavior in the `config/web.php`:
+
+    'formatter' => [
+        'class' => \yii\i18n\Formatter::className(),
+        'as acronymFormatter' => \sateler\util\formatters\AcronymFormatBehavior::className(),
+    ],
+
+Or if you use another formatter class, add the behavior:
+
+    public function behaviors() {
+        return [ \sateler\util\formatters\AcronymFormatBehavior::className() ];
+    }
+
+
+Then you can use `Yii::$app->formatter->asAcronym()`, or specify the `acronym` format in `GridView` or `DetailView`.
