@@ -36,6 +36,7 @@ Usage
             'class' => LinkColumn::class,
             'attribute' => 'name',
             'idAttribute' => 'id', // 'id' by default,
+            'linkIdAttribute' => 'id', // the id attribute name for the generated link url, 'id' by default (...?id=...)
             'action' => 'update', // 'view' by default
             'controller' => 'models', // null by default (current controller)
             //  if you need something more complex than a simple link

@@ -21,6 +21,9 @@ class LinkColumn extends DataColumn
 {
     /** @var string the id property of each model. Defaults to id */
     public $idAttribute = 'id';
+
+    /** @var string the id attribute name for the generated link url. Defaults to id (...?id=...) */
+    public $linkIdAttribute = 'id';
     
     /** @var string the action to link to. Defaults to 'view' */
     public $action = 'view';
@@ -56,6 +59,6 @@ class LinkColumn extends DataColumn
     
     private function defaultUrlCreator($model, $key, $index) {
         $action = $this->controller ? "{$this->controller}/{$this->action}" : $this->action;
-        return [$action, $this->idAttribute => $model->{$this->idAttribute}];
+        return [$action, $this->linkIdAttribute => $model->{$this->idAttribute}];
     }
 }
