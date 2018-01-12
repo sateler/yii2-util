@@ -101,7 +101,7 @@ SCRIPT;
             $id = [$id];
         }
         if(is_array($id)) {
-            $query->where([$this->selectIdProperty => $id]);
+            $query->where([$this->select2IdProperty => $id]);
             return [
                 'results' => $query->all(),
             ];
@@ -146,7 +146,7 @@ SCRIPT;
         
         $results = array_map(function($row) {
             return [
-                'id' => $row->id,
+                $this->select2IdParameter => ArrayHelper::getValue($row, $this->select2IdProperty),
                 'text' => call_user_func($this->select2ShowTextFunction, $row),
             ];
         }, $rows);
