@@ -96,14 +96,26 @@ SCRIPT;
         /* @var $query \yii\db\ActiveQuery */
         $query = $this->owner->find();
         
+        if(!$this->select2ShowTextFunction) {
+            $this->select2ShowTextFunction = function ($row) {
+                $values = array_filter(array_map(function($col) use($row) {
+                    return ArrayHelper::getValue($row, $col, '');
+                }, $this->select2SearchAttributes));
+                return implode(' ', $values);
+            };
+        }
+        
         $id = ArrayHelper::getValue($params, $this->select2IdParameter, null);
         if (is_numeric($id)) {
             $id = [$id];
         }
         if(is_array($id)) {
-            $query->where([$this->select2IdProperty => $id]);
+            $row = $query->where([$this->select2IdProperty => $id])->one();
             return [
-                'results' => $query->all(),
+                'results' => [[
+                    $this->select2IdParameter => ArrayHelper::getValue($row, $this->select2IdProperty),
+                    'text' => call_user_func($this->select2ShowTextFunction, $row),
+                ]],
             ];
         }
         $search = ArrayHelper::getValue($params, $this->select2SearchParameter, null);
@@ -134,15 +146,6 @@ SCRIPT;
         $query->limit($this->select2PageSize);
         
         $rows = $query->all();
-        
-        if(!$this->select2ShowTextFunction) {
-            $this->select2ShowTextFunction = function ($row) {
-                $values = array_filter(array_map(function($col) use($row) {
-                    return ArrayHelper::getValue($row, $col, '');
-                }, $this->select2SearchAttributes));
-                return implode(' ', $values);
-            };
-        }
         
         $results = array_map(function($row) {
             return [
