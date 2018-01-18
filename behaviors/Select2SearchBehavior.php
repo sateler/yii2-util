@@ -21,7 +21,7 @@ class Select2SearchBehavior extends \yii\base\Behavior
     public $select2SearchAttributes;
     
     /** @var string[] The list of attributes to sort the results by. Defaults to 'id'. */
-    public $select2SortAttributes = ['id'];
+    public $select2SortAttributes = ['id' => SORT_ASC];
     
     /** @var string Explode the query into multiple search terms using this char(s). Set to false or empty to disable exploding. Defaults to ' ' (space). */
     public $select2ExplodeSearchTermChar = ' ';

@@ -85,7 +85,7 @@ Add the behavior to the model and configure it:
                 
                 // Common configurations:
                 'select2SearchAttributes' => ['attr1', 'attr2'], // Required. These are the attributes that will be searched
-                'select2SortAttributes' => ['attr3' => SORT_ASC], // To sort the results. Defaults to 'id'.
+                'select2SortAttributes' => ['attr3' => SORT_ASC], // To sort the results. Defaults to ['id' => SORT_ASC].
                 'select2FilterQuery' => function($query, $params) { $query->joinWith(['other_table'])->andWhere(['attr4' => 'constant']); }, // To modify the query. Defaults to null
                 'select2ShowTextFunction' => function($model) { return "{$model->attr1} / ({$model->attr2})"; }, // To build the text property. Defaults to implode the search attributes.
                 'select2ExplodeSearchTermChar' => ' ', // Explode the search query using this chars, false to disable. Defaults to ' '.
