@@ -81,6 +81,8 @@ Add the behavior to the model and configure it:
     public function behaviors() {
         return [
             'select2' => [
+                'class' => Select2SearchBehavior::className(),
+                
                 // Common configurations:
                 'select2SearchAttributes' => ['attr1', 'attr2'], // Required. These are the attributes that will be searched
                 'select2SortAttributes' => ['attr3' => SORT_ASC], // To sort the results. Defaults to 'id'.
