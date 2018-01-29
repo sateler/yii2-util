@@ -125,3 +125,41 @@ In the view use the select2 widget with the url and merge the default config:
         ]
     ))
 ```
+
+EnumNameBehavior
+-----
+Autocreate names properties from an array for model attributes.
+
+Add the behavior to the model and configure it:
+
+```php
+class User extends ActiveRecord
+{
+    const TYPE_ADMIN = 'admin';
+    const TYPE_USER = 'user';
+
+    public static $types = [
+        self::TYPE_ADMIN => 'Administrator',
+        self::TYPE_USER => 'User',
+    ];
+
+    public function behaviors() {
+        return [
+            [
+                'class' => EnumNameBehavior::className(),
+                'properties' => [
+                    [
+                        'values' => self::$types,
+                        'property' => 'type',
+                        'name' => 'typeName',
+                    ],
+                ],
+            ],
+        ];
+    }
+```
+
+Use the new property:
+```php
+    echo "The user has a property {$user->type} and a name for it: {$user->typeName}";
+```
