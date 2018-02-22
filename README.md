@@ -163,3 +163,25 @@ Use the new property:
 ```php
     echo "The user has a property {$user->type} and a name for it: {$user->typeName}";
 ```
+
+UuidColumnBehavior
+-----
+Autocreate names properties from an array for model attributes.
+
+Add the behavior to the model and configure it:
+
+```php
+class User extends ActiveRecord
+{
+    public function behaviors() {
+        return [
+            [
+                'class' => UuidColumnBehavior::className(),
+                'attribute' => 'uuid_column',
+                // 'value' => a Uuid v4 by default
+            ],
+        ];
+    }
+```
+
+Then the model will have its `uuid_column` filled before insert.

@@ -18,7 +18,8 @@
     ],
     "require": {
         "php": ">=7",
-        "yiisoft/yii2": "~2.0.13"
+        "yiisoft/yii2": "~2.0.13",
+        "ramsey/uuid": "^3.5"
     },
     "autoload": {
         "psr-4": {
