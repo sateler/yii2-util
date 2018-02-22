@@ -4,6 +4,12 @@
     "type": "yii2-extension",
     "keywords": ["yii2","extension"],
     "license": "Apache-2.0",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
     "authors": [
         {
             "name": "Sateler",
