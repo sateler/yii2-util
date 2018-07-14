@@ -184,4 +184,24 @@ class User extends ActiveRecord
     }
 ```
 
-Then the model will have its `uuid_column` filled before insert.
+UnixTimestampStringBehavior
+-----
+Creates a virtual attribute with a string representation of a timestamp
+
+Add the behavior to the model and configure it:
+
+```php
+class User extends ActiveRecord
+{
+    public function behaviors() {
+        return [
+            [
+                'class' => UnixTimestampStringBehavior::className(),
+                'underlying' => 'timestamp_column',
+                'virtual' => 'string_attribute',
+                // 'format' => 'Y-m-d', by default
+            ],
+        ];
+    }
+```
+
