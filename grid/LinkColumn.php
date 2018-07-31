@@ -11,6 +11,7 @@ namespace sateler\util\grid;
 use yii\grid\DataColumn;
 use yii\helpers\Html;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * Description of LinkColumn
@@ -19,7 +20,7 @@ use Yii;
  */
 class LinkColumn extends DataColumn
 {
-    /** @var string the id property of each model. Defaults to id */
+    /** @var string the id property of each model. Defaults to id. Can be a related model value (i.e. 'relatedModel.id') */
     public $idAttribute = 'id';
 
     /** @var string the id attribute name for the generated link url. Defaults to id (...?id=...) */
@@ -59,6 +60,6 @@ class LinkColumn extends DataColumn
     
     private function defaultUrlCreator($model, $key, $index) {
         $action = $this->controller ? "{$this->controller}/{$this->action}" : $this->action;
-        return [$action, $this->linkIdAttribute => $model->{$this->idAttribute}];
+        return [$action, $this->linkIdAttribute => ArrayHelper::getValue($model, $this->idAttribute)];
     }
 }
