@@ -157,7 +157,7 @@ SCRIPT;
         return [
             'results' => $results,
             'pagination' => [
-                'more' => count($rows) != 0,
+                'more' => count($rows) == $this->select2PageSize,
             ],
         ];
     }
