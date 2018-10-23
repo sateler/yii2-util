@@ -38,6 +38,10 @@ class LinkColumn extends DataColumn
     /** @var string Controller to link to. Defaults to the current one */
     public $controller = null;
     
+    /** @var callable|null Whether to create link or not. Parameters are `$model`, `$key`, `$index` */
+    public $createLink;
+    
+    
     public function init()
     {
         parent::init();
@@ -48,14 +52,22 @@ class LinkColumn extends DataColumn
             $orig = $this->linkOptions;
             $this->linkOptions = function () use ($orig) { return $orig; };
         }
+        if (!is_callable($this->createLink)) {
+            $this->createLink = function() { return true; };
+        }
     }
     
     protected function renderDataCellContent($model, $key, $index)
     {
         $content = parent::renderDataCellContent($model, $key, $index);
-        $url = call_user_func($this->urlCreator, $model, $key, $index);
-        $options = call_user_func($this->linkOptions, $model, $key, $index);
-        return Html::a($content, $url, $options);
+        if (call_user_func($this->createLink, $model, $key, $index)) {
+            $url = call_user_func($this->urlCreator, $model, $key, $index);
+            $options = call_user_func($this->linkOptions, $model, $key, $index);
+            return Html::a($content, $url, $options);
+        }
+        else {
+            return $content;
+        }
     }
     
     private function defaultUrlCreator($model, $key, $index) {

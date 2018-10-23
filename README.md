@@ -42,6 +42,8 @@ Usage
             //  if you need something more complex than a simple link
             // 'urlCreator' => function ($model, $key, $index) { return ['controller/action', 'id' => $model->id]; }
             'linkOptions' => [], // or a callable for each row
+            // if some links may not be accessible
+            //'createLink' => function ($model, $key, $index) { return Yii::$app->user->can('view', ['model' => $model]); },
         ],
         // other columns...
     ]
