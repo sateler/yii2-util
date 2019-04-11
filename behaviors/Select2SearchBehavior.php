@@ -109,6 +109,9 @@ SCRIPT;
         if (is_numeric($id)) {
             $id = [$id];
         }
+        elseif (is_string($id) && strlen($id)){
+            $id = [$id];
+        }
         if(is_array($id)) {
             $row = $query->where([$this->select2IdProperty => $id])->one();
             return [
