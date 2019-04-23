@@ -113,12 +113,14 @@ SCRIPT;
             $id = [$id];
         }
         if(is_array($id)) {
-            $row = $query->where([$this->select2IdProperty => $id])->one();
+            $rows = $query->where([$this->select2IdProperty => $id])->all();
             return [
-                'results' => [[
-                    $this->select2IdParameter => ArrayHelper::getValue($row, $this->select2IdProperty),
-                    'text' => call_user_func($this->select2ShowTextFunction, $row),
-                ]],
+                'results' => array_map(function($row) {
+                    return [
+                        $this->select2IdParameter => ArrayHelper::getValue($row, $this->select2IdProperty),
+                        'text' => call_user_func($this->select2ShowTextFunction, $row),
+                    ];
+                }, $rows),
             ];
         }
         $search = ArrayHelper::getValue($params, $this->select2SearchParameter, null);
