@@ -69,6 +69,9 @@ class Select2SearchBehavior extends \yii\base\Behavior
         $initScript = <<< SCRIPT
 function (element, callback) {
     var id=\$(element).val();
+    if(Array.isArray(id)){
+        id = id.length ? id : false;
+    }
     if (id) {
         \$.ajax("{$url}?" + $.param({id: id}), {
             dataType: "json"
