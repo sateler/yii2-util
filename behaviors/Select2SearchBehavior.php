@@ -116,7 +116,11 @@ SCRIPT;
             $id = [$id];
         }
         if(is_array($id)) {
-            $rows = $query->where([$this->select2IdProperty => $id])->all();
+            $query->where([$this->select2IdProperty => $id]);
+            if ($this->select2FilterQuery != null) {
+                call_user_func($this->select2FilterQuery, $query, $params);
+            }
+            $rows = $query->all();
             return [
                 'results' => array_map(function($row) {
                     return [
