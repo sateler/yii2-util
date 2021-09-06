@@ -16,6 +16,9 @@ class Select2SearchBehavior extends \yii\base\Behavior
 {
     /** @var string The id property of each model. Defaults to 'id'. */
     public $select2IdProperty = 'id';
+
+    /** @var string The id property used on the query. Defaults to $this->select2IdProperty */
+    public $select2IdQueryProperty;
     
     /** @var string[] The list of attributes to search in. Required, no default value. */
     public $select2SearchAttributes;
@@ -55,6 +58,10 @@ class Select2SearchBehavior extends \yii\base\Behavior
         }
         else {
             throw new InvalidConfigException("You need to set the select2SearchAttributes parameter to use Select2SearchBehavior");
+        }
+
+        if(!$this->select2IdQueryProperty) {
+            $this->select2IdQueryProperty = $this->select2IdProperty;
         }
     }
     
@@ -116,7 +123,7 @@ SCRIPT;
             $id = [$id];
         }
         if(is_array($id)) {
-            $query->where([$this->select2IdProperty => $id]);
+            $query->where([$this->select2IdQueryProperty => $id]);
             if ($this->select2FilterQuery != null) {
                 call_user_func($this->select2FilterQuery, $query, $params);
             }
